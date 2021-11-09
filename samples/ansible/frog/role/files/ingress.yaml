@@ -1,0 +1,16 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frog
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/frog"
+        backend:
+          service:
+            name: frog
+            port:
+              number: 5678

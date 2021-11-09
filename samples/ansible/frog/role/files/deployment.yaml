@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frog
+  namespace:
+  labels:
+    app: frog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frog
+  template:
+    metadata:
+      labels:
+        app: frog
+    spec:
+      containers:
+      - name: frog-app
+        image: hashicorp/http-echo:0.2.3
+        args:
+        - "-text=Croak Croak :)"
+        ports:
+        - containerPort: 80

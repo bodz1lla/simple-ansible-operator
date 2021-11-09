@@ -1,0 +1,27 @@
+---
+# tasks file for FROG-operator
+
+- name: Create namespace
+  k8s:
+    name: "{{ namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Create nginx deployment
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/deployment.yaml') | from_yaml }}"
+    namespace: "{{ namespace }}"
+
+- name: Create nginx service
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/service.yaml') | from_yaml }}"
+    namespace: "{{ namespace }}"
+
+- name: Create nginx ingress
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/ingress.yaml') | from_yaml }}"
+    namespace: "{{ namespace }}"
